@@ -16,6 +16,6 @@ class TvshowSeeder extends Seeder
     public function run()
     {
         // Defines how many rows of data the factory will create
-        Tvshow::factory()->times(10)->create();
+        Tvshow::factory()->times(20)->create();
     }
 }
