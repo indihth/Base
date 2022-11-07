@@ -16,7 +16,8 @@
                         {{ $tvshow->title }}
                     </h2>
                     <p class="mt-2">
-                        {{ $tvshow->description }}
+                        {{-- limits description to displaying only 200 characters --}}
+                        {{ Str::limit($tvshow->description, 200) }}
                     </p>
                     <span class="block mt-4 text-sm opacity-70">{{ $tvshow->updated_at->diffForHumans() }}</span>
                 </div>
@@ -25,6 +26,8 @@
             @empty
             <p>No TV Shows added yet.</p>
             @endforelse
+
+            {{ $tvshows->links() }}
         </div>
     </div>
 </x-app-layout>

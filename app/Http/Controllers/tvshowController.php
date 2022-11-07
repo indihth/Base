@@ -15,8 +15,9 @@ class tvshowController extends Controller
      */
     public function index()
     {
-        // shows the tv shows which the logged in user added, sorting by last updated
-        $tvshows =  Tvshow::where('user_id', Auth::id())->latest('updated_at')->get();
+        // shows the tv shows which the logged in user added, sorting by last updated 
+        // paginate limits number of entries displayed per page
+        $tvshows =  Tvshow::where('user_id', Auth::id())->latest('updated_at')->paginate(5);
         
         // shows the index view and displays the tv shows from the above variable
         return view('tvshows.index')->with('tvshows', $tvshows);
