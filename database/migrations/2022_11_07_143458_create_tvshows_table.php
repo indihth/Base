@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('t_v_shows', function (Blueprint $table) {
+        Schema::create('tvshows', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
             $table->foreignId('user_id')->constrained();
@@ -23,10 +23,6 @@ return new class extends Migration
             $table->string('director');
             $table->string('rating');
             $table->string('difficulty');
-
-            //change to int later, would need add styling
-            // $table->integer('rating');
-            // $table->integer('difficulty');
         });
     }
 
@@ -37,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t_v_shows');
+        Schema::dropIfExists('tvshows');
     }
 };
