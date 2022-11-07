@@ -19,8 +19,12 @@
                         'value' field used to retain user input after error message from other fields
                         :colon needed to pass in a Blade value--}}
                         <x-text-input type="text" name="title" field="title" :value="@old('title')" placeholder="Title" class="w-full" autocomplete="off"></x-text-input>
+                        {{-- <x-text-input type="text" name="director" field="director" :value="@old('director')" placeholder="Director" class="w-full" autocomplete="off"></x-text-input>
+                        <x-text-input type="text" name="release_date" field="release_date" :value="@old('release_date')" placeholder="Release Date" class="w-full" autocomplete="off"></x-text-input>
+                        <x-text-input type="text" name="rating" field="rating" :value="@old('rating')" placeholder="Rating" class="w-full" autocomplete="off"></x-text-input>
+                        <x-text-input type="text" name="difficulty" field="difficulty" :value="@old('difficulty')" placeholder="Difficulty" class="w-full" autocomplete="off"></x-text-input> --}}
 
-                        <x-textarea name="text" rows="10" field="text" :value="@old('text')" placeholder="Start typing here..." class="w-full mt-6"></x-textarea>
+                        <x-textarea name="description" rows="10" field="description" :value="@old('description')" placeholder="Start typing here..." class="w-full mt-6"></x-textarea>
       
                         <x-primary-button class="mt-6">Save</x-primary-button>
                 </form>
