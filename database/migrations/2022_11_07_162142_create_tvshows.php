@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
             $table->string('title');
-            $table->string('description');
+            $table->longText('description');
             $table->date('release_date');
             $table->string('director');
             $table->string('rating');
