@@ -15,7 +15,18 @@ return new class extends Migration
     {
         Schema::create('t_v_shows', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
+            $table->string('title');
+            $table->date('release_date');
+            $table->string('director');
+            $table->string('rating');
+            $table->string('difficulty');
+
+            //change to int later, would need add styling
+            // $table->integer('rating');
+            // $table->integer('difficulty');
         });
     }
 
