@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\tvshow;
+use App\Models\Tvshow;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class TvshowsSeeder extends Seeder
+class TvshowSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class TvshowsSeeder extends Seeder
      */
     public function run()
     {
-        // defines how many rows of data will be created by the factory
-        tvshow::factory()->times(50)->create();
+        // Defines how many rows of data the factory will create
+        Tvshow::factory()->times(10)->create();
     }
 }
