@@ -35,7 +35,7 @@
                     @endauth
                 </div>
             @endif
-            <h1>TV Shows</h1>
+            <h1 class="text 5x-1">TV Shows</h1>
         </div>
     </body>
 </html>

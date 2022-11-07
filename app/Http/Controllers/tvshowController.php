@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tvshow;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class tvshowController extends Controller
 {
@@ -13,7 +15,11 @@ class tvshowController extends Controller
      */
     public function index()
     {
-        //
+        // shows the tv shows which the logged in user added, sorting by last updated
+        $tvshows =  Tvshow::where('user_id', Auth::id())->latest('updated_at')->get();
+        
+        // shows the index view and displays the tv shows from the above variable
+        return view('tvshows.index')->with('tvshows', $tvshows);
     }
 
     /**
