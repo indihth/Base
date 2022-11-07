@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tvshow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class tvshowController extends Controller
 {
@@ -15,12 +16,24 @@ class tvshowController extends Controller
      */
     public function index()
     {
-        // shows the tv shows which the logged in user added, sorting by last updated 
-        // paginate limits number of entries displayed per page
+
+        ///////////////////////////////////////
+        // display only notes for logged in user
+        // latest, sorted by the 'update_at' column
+        // $notes = Note::where('user_id', Auth::id())->latest('updated_at')->get();
+        
+        ///////////////////////////////////////
+        // paginate added to display only 'x' amount of notes per page
+        // paginate() take arguement, num of notes to be displayed
+
         $tvshows =  Tvshow::where('user_id', Auth::id())->latest('updated_at')->paginate(5);
         
         // shows the index view and displays the tv shows from the above variable
         return view('tvshows.index')->with('tvshows', $tvshows);
+
+        ///////////////////////////////////////
+        // alternatively, can use include in view()
+        // return view('notes.index', $notes);
     }
 
     /**
@@ -41,7 +54,22 @@ class tvshowController extends Controller
      */
     public function store(Request $request)
     {
-        //
+          // Validates the fields are filled, title max 120 char
+          $request->validate([
+            'title'=> 'required|max:120',
+            'description'=> 'required'
+        ]);
+
+        // Creates note, passing the user_id
+        Tvshow::create([
+            // 'uuid' => Str::uuid(),
+            'user_id' => Auth::id(),
+            'title' => $request->title,
+            'description' => $request->description
+        ]);
+
+        // Return to the notes page after note is added
+        return to_route('tvshows.index');
     }
 
     /**
