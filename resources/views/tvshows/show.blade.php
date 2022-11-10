@@ -6,8 +6,14 @@
     </x-slot>
 
     <div class="py-12">
-        {{-- displays when note was created and updated, css needed --}}
+        {{-- displays when tvshow was created and updated, css needed --}}
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+            {{-- flash alter to confirm update --}}
+            <x-alert-success>
+                {{ session('success') }}
+            </x-alert-success>
+
             <div class="flex ">
                 <p class="opacity-70">
                     <strong>Created: </strong> {{ $tvshow->created_at->diffForHumans() }}
@@ -15,6 +21,21 @@
                 <p class="opacity-70 ml-8">
                     <strong>Updated: </strong> {{ $tvshow->updated_at->diffForHumans() }}
                 </p>
+
+                {{-- Edit tvshow button --}}
+                <a href="{{ route('tvshows.edit', $tvshow) }}" class="btn-link ml-auto">Edit TV Show</a>
+                {{-- Delete tvshow button, needs to be form --}}
+                <form action="{{ route('tvshows.destroy', $tvshow) }}" method="post">
+
+                    {{-- HTML can't use delete method, @method needed --}}
+                    @method('delete')
+
+                    {{-- csrf token --}}
+                    @csrf
+
+                    <button type="submit" class="btn btn-danger ml-4"
+                        onclick="confirm('Are you sure you want to delete this TV Show?')">Delete TV Show</button>
+                </form>
             </div>
 
 
@@ -23,7 +44,7 @@
                     {{ $tvshow->title }}
                 </h2>
 
-                {{-- NOT WORKING: whitespace-pre-wrap preserves the returns and spacing in the note text --}}
+                {{-- NOT WORKING: whitespace-pre-wrap preserves the returns and spacing in the tvshow text --}}
                 <p class="mt-6 whitespace-pre-wrap">{{ $tvshow->description }}</p>
             </div>
         </div>
