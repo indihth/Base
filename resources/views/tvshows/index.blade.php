@@ -17,7 +17,8 @@
 
                 <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
                     <h2 class="font-bold text-2xl">
-                        {{ $tvshow->title }}
+                        {{-- Makes tvshow titles into links, passing the tvshow id into URL --}}
+                       <a href="{{ route('tvshows.show', $tvshow) }}">{{ $tvshow->title }}</a> 
                     </h2>
                     <p class="mt-2">
                         {{-- limits description to displaying only 200 characters --}}
