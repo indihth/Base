@@ -21,10 +21,10 @@
                         :colon needed to pass in a Blade value --}}
                         <x-textarea name="description" rows="10" field="description" :value="@old('description')" placeholder="Start typing here..." class="w-full mt-6"></x-textarea>
 
-                        <x-text-input type="text" name="director" field="director" :value="@old('director')" placeholder="Director" class="w-full" autocomplete="off"></x-text-input>
-                        <x-text-input type="date" name="release_date" field="release_date" :value="@old('release_date')" placeholder="Release Date" class="w-full" autocomplete="off"></x-text-input>
-                        <x-text-input type="number" name="rating" field="rating" :value="@old('rating')" placeholder="Rating" class="w-full" autocomplete="off"></x-text-input>
-                        <x-text-input type="number" name="difficulty" field="difficulty" :value="@old('difficulty')" placeholder="Difficulty" class="w-full" autocomplete="off"></x-text-input>
+                        <x-text-input type="text" name="director" field="director" :value="@old('director')" placeholder="Director" class="" autocomplete="off"></x-text-input>
+                        <x-text-input type="text" name="release_date" field="release_date" :value="@old('release_date')" placeholder="Release Date" class="" autocomplete="off"></x-text-input>
+                        <x-text-input type="number" name="rating" field="rating" :value="@old('rating')" placeholder="Rating" class="" autocomplete="off"></x-text-input>
+                        <x-text-input type="number" name="difficulty" field="difficulty" :value="@old('difficulty')" placeholder="Difficulty" class="" autocomplete="off"></x-text-input>
 
       
                         <x-primary-button class="mt-6">Save</x-primary-button>
