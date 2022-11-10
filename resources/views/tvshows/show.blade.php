@@ -45,6 +45,11 @@
                 </h2>
 
                 {{-- NOT WORKING: whitespace-pre-wrap preserves the returns and spacing in the tvshow text --}}
+                <p class="mt-6 whitespace-pre-wrap">{{ $tvshow->image }}</p>
+                <p class="mt-6 whitespace-pre-wrap">{{ $tvshow->director }}</p>
+                <p class="mt-6 whitespace-pre-wrap">{{ $tvshow->release_date }}</p>
+                <p class="mt-6 whitespace-pre-wrap">{{ $tvshow->rating }}</p>
+                <p class="mt-6 whitespace-pre-wrap">{{ $tvshow->difficulty }}</p>
                 <p class="mt-6 whitespace-pre-wrap">{{ $tvshow->description }}</p>
             </div>
         </div>

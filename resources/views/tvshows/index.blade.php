@@ -9,6 +9,10 @@
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
+            <x-alert-success>
+                {{ session('success') }}
+            </x-alert-success>
+
         {{-- routes to the create form --}}
         <a href="{{ route('tvshows.create') }}" class="btn-link btn-lg mb-2">+ New TV Show</a>
 
