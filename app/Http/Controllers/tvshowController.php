@@ -121,9 +121,15 @@ class tvshowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tvshow $tvshow)
     {
-        //
+        // Authorise user first
+        if ($tvshow->user_id != Auth::id()) {
+            //403 error forbidden
+            return abort(403);
+        }
+
+        return view('tvshows.edit')->with('tvshow', $tvshow);
     }
 
     /**
@@ -133,9 +139,34 @@ class tvshowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tvshow $tvshow)
     {
-        //
+        
+        if ($tvshow->user_id != Auth::id()) {
+            //403 error forbidden
+            return abort(403);
+        }
+
+
+        $request->validate([
+            'title' => 'required|max:120',
+            'description' => 'required',
+            'release_date' => 'required|date',
+            'director' => 'required|max:120',
+            'rating' => 'required|numeric|min:1|max:5',
+            'difficulty' => 'required|numeric|min:1|max:10'
+        ]);
+
+        $tvshow->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'release_date' => $request->release_date,
+            'director' => $request->director,
+            'rating' => $request->rating,
+            'difficulty' => $request->difficulty
+        ]);
+
+        return to_route('tvshows.show', $tvshow)->with('success', 'TV Show updated successfully');
     }
 
     /**
@@ -144,8 +175,15 @@ class tvshowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tvshow $tvshow)
     {
-        //
+        if($tvshow->user_id != Auth::id()) {
+            //403 error forbidden
+            return abort(403);
+        }
+
+        $tvshow->delete();
+
+        return to_route('tvshows.index');
     }
 }
