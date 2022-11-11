@@ -26,6 +26,9 @@ class TvshowFactory extends Factory
             'rating' => $this->faker->numberBetween($min = 1, $max = 5),                // Rating 1-5 stars
             'difficulty' => $this->faker->numberBetween($min = 1, $max = 10),           // Rating 1-10 stars
 
+            // Seed images from storage folder
+            // https://kodementor.com/how-to-seeds-images-with-faker-in-laravel/
+
         ];
     }
 }

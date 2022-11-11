@@ -45,7 +45,10 @@
                 </h2>
 
                 {{-- NOT WORKING: whitespace-pre-wrap preserves the returns and spacing in the tvshow text --}}
-                <p class="mt-6 whitespace-pre-wrap">{{ $tvshow->image }}</p>
+                <p>
+                    {{-- displays the image from by using the symbolic storage link --}}
+                    <img src="{{ asset('storage/images/' . $tvshow->image) }}" width="150">
+                </p>
                 <p class="mt-6 whitespace-pre-wrap">{{ $tvshow->director }}</p>
                 <p class="mt-6 whitespace-pre-wrap">{{ $tvshow->release_date }}</p>
                 <p class="mt-6 whitespace-pre-wrap">{{ $tvshow->rating }}</p>

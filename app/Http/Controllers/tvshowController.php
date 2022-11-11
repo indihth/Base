@@ -64,8 +64,19 @@ class tvshowController extends Controller
             // if 'numeric' is not included the input values will be treated as characters
             // https://www.youtube.com/watch?v=SY375k_BFYU
             'rating' => 'required|numeric|min:1|max:5',
-            'difficulty' => 'required|numeric|min:1|max:10'
+            'difficulty' => 'required|numeric|min:1|max:10',
+            'image' => 'required|file|image'
         ]);
+
+        $image = $request->file('image');
+        $extension = $image->getClientOriginalExtension();
+        $filename = date('Y-m-d-His') . '_' . $request->input('title') . '.' . $extension;
+
+        // // referenced: https://dev.to/shanisingh03/how-to-upload-image-in-laravel-9--4dkf
+        // $filename = time().'.'.$request->image->extension();
+
+        // stores the image file in the public images folder
+        $path = $image->storeAs('public/images', $filename);
 
         // Creates and saves note, passing the user_id
         Tvshow::create([
@@ -77,6 +88,7 @@ class tvshowController extends Controller
             'director' => $request->director,
             'rating' => $request->rating,
             'difficulty' => $request->difficulty,
+            'image' => $filename
         ]);
 
         // Return to the notes page after note is added
@@ -141,7 +153,7 @@ class tvshowController extends Controller
      */
     public function update(Request $request, Tvshow $tvshow)
     {
-        
+
         if ($tvshow->user_id != Auth::id()) {
             //403 error forbidden
             return abort(403);
@@ -177,13 +189,13 @@ class tvshowController extends Controller
      */
     public function destroy(Tvshow $tvshow)
     {
-        if($tvshow->user_id != Auth::id()) {
+        if ($tvshow->user_id != Auth::id()) {
             //403 error forbidden
             return abort(403);
         }
 
         $tvshow->delete();
 
-        return to_route('tvshows.index');
+        return to_route('tvshows.index')->with('success', 'TV Show deleted successfully');
     }
 }

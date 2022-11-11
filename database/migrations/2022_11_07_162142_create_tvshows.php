@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('director');
             $table->string('rating');
             $table->string('difficulty');
+            $table->string('image');
         });
     }
 
