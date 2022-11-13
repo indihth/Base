@@ -26,9 +26,11 @@ class TvshowFactory extends Factory
             'rating' => $this->faker->numberBetween($min = 1, $max = 5),                // Rating 1-5 stars
             'difficulty' => $this->faker->numberBetween($min = 1, $max = 10),           // Rating 1-10 stars
 
-            // Seed images from storage folder
-            // https://kodementor.com/how-to-seeds-images-with-faker-in-laravel/
-
+            // Using Faker to copy random files from the source directory to the target one and return just the file name
+            // The file path can be returned by ommiting the 'false' as the 3rd parameter
+            'image' => $this->faker->file($sourceDir = 'public/images/default/', $targetDir = 'public/storage/images', false)
         ];
+
     }
+
 }
