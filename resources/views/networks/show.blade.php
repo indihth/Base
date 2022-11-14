@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Networks') }}
+            {{ __('TV Shows by Network') }}
         </h2>
     </x-slot>
 
@@ -13,28 +13,6 @@
             <x-alert-success>
                 {{ session('success') }}
             </x-alert-success>
-
-            <div class="flex ">
-                {{-- <p class="opacity-70">
-                    <strong>Created: </strong> {{ $network->created_at->diffForHumans() }}
-                </p> --}}
-                {{-- <p class="opacity-70 ml-8">
-                    <strong>Updated: </strong> {{ $network->updated_at->diffForHumans() }}
-                </p> --}}
-            </div>
-
-
-            {{-- <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
-                <h2 class="font-bold text-2xl">
-                    {{ $networkShows->network_id }}
-                </h2> --}}
-
-                {{-- <p class="mt-6 whitespace-pre-wrap">Director: {{ $network->director }}</p> --}}
-                {{-- <p class="mt-6 whitespace-pre-wrap">Network: {{ $network->title }}</p> --}}
-                {{-- <p class="mt-6 whitespace-pre-wrap">Release Date: {{ $network->release_date }}</p>
-                <p class="mt-6 whitespace-pre-wrap">Rating: {{ $network->rating }}</p>
-                <p class="mt-6 whitespace-pre-wrap">Difficulty: {{ $network->difficulty }}</p>
-                <p class="mt-6 whitespace-pre-wrap">Description: {{ $network->description }}</p> --}}
 
                 {{-- loops through all tv shows, displaying the title and descriptions --}}
                 @forelse ($networkShows as $tvshow)
@@ -57,7 +35,6 @@
                 @endforelse
 
             </div>
-            {{ $networkShows->links() }}
         {{-- </div> --}}
     </div>
 </x-app-layout>

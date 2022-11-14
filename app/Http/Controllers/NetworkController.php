@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Network;
 use App\Models\Tvshow;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class NetworkController extends Controller
 {
@@ -50,7 +50,8 @@ class NetworkController extends Controller
      */
     public function show(Network $network)
     {
-        $networkShows = Tvshow::where('network_id', $network->id)->get()->paginate(5);
+        // return the tv shows from the network whose id was passed from the index view
+        $networkShows = Tvshow::where('network_id', $network->id)->get();
         
        // $networkShows = $network->with('tvshows')->get();
 
