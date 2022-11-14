@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NetworkController;
 use App\Http\Controllers\tvshowController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,5 +26,6 @@ Route::get('/dashboard', function () {
 // Allows only logged in authorised users to access the tvshows page
 Route::resource('/tvshows', tvshowController::class)->middleware(['auth']);
 
+Route::resource('/networks', NetworkController::class);
 
 require __DIR__.'/auth.php';

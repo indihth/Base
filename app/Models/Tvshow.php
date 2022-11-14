@@ -31,4 +31,9 @@ class Tvshow extends Model
     {
         return 'uuid';
     }
+
+    public function network() 
+    {
+        return $this->belongsTo('App\Models\Network');
+    }
 }

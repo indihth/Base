@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('tvshows.index')" :active="request()->routeIs('tvshows.index')">
                         {{ __('TV Shows') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('networks.index')" :active="request()->routeIs('networks.index')">
+                        {{ __('Networks') }}
+                    </x-nav-link>
                 </div>
             </div>
 

@@ -17,7 +17,8 @@ class TvshowFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => '1',
+            'user_id' => '1', // use faker to generate ints between 1 and however many users are created with the user factory
+            'network_id' => $this->faker->numberBetween($min = 1, $max = 4), // Randomly assigns a network id
             'uuid' => $this->faker->uuid,
             'release_date' => $this->faker->date($format = 'Y-m-d', $max = 'now'),      // Formatting date
             'title' => $this->faker->sentence($nbWords = 2, $variableNbWords = true),   // Creates 2 words
