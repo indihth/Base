@@ -57,7 +57,6 @@
                 @endforelse
 
             </div>
-            {{ $networkShows->links() }}
         {{-- </div> --}}
     </div>
 </x-app-layout>

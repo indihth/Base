@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\tvshowController as AdminTVShowController;
+use App\Http\Controllers\User\tvshowController as UserTVShowController;
 use App\Http\Controllers\NetworkController;
-use App\Http\Controllers\tvshowController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,13 +20,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-// Allows only logged in authorised users to access the tvshows page
-Route::resource('/tvshows', tvshowController::class)->middleware(['auth']);
-
-Route::resource('/networks', NetworkController::class);
+Route::resource('/networks', NetworkController::class)->middleware(['auth']);
 
 require __DIR__.'/auth.php';
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
+
+// This will create all the routes for Book
+// and the routes will only be available when a user is logged in
+Route::resource('/admin/tvshows', AdminTVShowController::class)->middleware(['auth'])->names('admin.tvshows');
+
+Route::resource('/user/tvshows', UserTVShowController::class)->middleware(['auth'])->names('user.tvshows')->only(['index', 'show']);
+

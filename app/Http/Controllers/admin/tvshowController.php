@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Tvshow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,24 +17,13 @@ class tvshowController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
 
-        ///////////////////////////////////////
-        // display only notes for logged in user
-        // latest, sorted by the 'update_at' column
-        // $notes = Note::where('user_id', Auth::id())->latest('updated_at')->get();
+        $tvshows = Tvshow::paginate(10);
 
-        ///////////////////////////////////////
-        // paginate added to display only 'x' amount of notes per page
-        // paginate() take arguement, num of notes to be displayed
+        return view('admin.tvshows.index')->with('tvshows', $tvshows);
 
-        $tvshows =  Tvshow::where('user_id', Auth::id())->latest('updated_at')->paginate(5);
-
-        // shows the index view and displays the tv shows from the above variable
-        return view('tvshows.index')->with('tvshows', $tvshows);
-
-        ///////////////////////////////////////
-        // alternatively, can use include in view()
-        // return view('notes.index', $notes);
     }
 
     /**
@@ -43,7 +33,10 @@ class tvshowController extends Controller
      */
     public function create()
     {
-        return view('tvshows.create');
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
+        return view('admin.tvshows.create');
     }
 
     /**
@@ -54,6 +47,9 @@ class tvshowController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
         // Validates the fields are filled, title max 120 char
         $request->validate([
             'title' => 'required|max:120',
@@ -88,11 +84,12 @@ class tvshowController extends Controller
             'director' => $request->director,
             'rating' => $request->rating,
             'difficulty' => $request->difficulty,
-            'image' => $filename
+            'image' => $filename,
+            'network_id' => '1'
         ]);
 
         // Return to the notes page after note is added
-        return to_route('tvshows.index');
+        return to_route('admin.tvshows.index');
     }
 
     /**
@@ -103,28 +100,10 @@ class tvshowController extends Controller
      */
     public function show(Tvshow $tvshow)
     {
-        /////////////////////////////
-        // Route Model Binding
-        // Can replace show($uuid) and inject Tvshow directly instead of querying.
-        // Alt code: 
-        // $tvshow = Tvshow::where('uuid', $uuid)->where('user_id', Auth::id())->firstOrFail();
-        /////////////////////////////
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
 
-
-        // if($tvshows->user_id != Auth::id()) {
-        //     //403 error forbidden
-        //     return abort(403);
-        // }
-
-        /////////////////////////////
-        // Auth::id() needed to only show authorised users tvshow.
-        // Otherwise user could put any tvshow id in url and access it.
-        // FURTHER READING - laravel Gates and Policies
-        // firstOrFail displays a 404 error if the first tvshow is unavailable.
-        /////////////////////////////
-
-        // Return the tvshow view page with variable 'tvshow'
-        return view('tvshows.show')->with('tvshow', $tvshow);
+        return view('admin.tvshows.show')->with('tvshow', $tvshow);
     }
 
     /**
@@ -135,13 +114,10 @@ class tvshowController extends Controller
      */
     public function edit(Tvshow $tvshow)
     {
-        // Authorise user first
-        if ($tvshow->user_id != Auth::id()) {
-            //403 error forbidden
-            return abort(403);
-        }
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
 
-        return view('tvshows.edit')->with('tvshow', $tvshow);
+        return view('admin.tvshows.edit')->with('tvshow', $tvshow);
     }
 
     /**
@@ -153,11 +129,8 @@ class tvshowController extends Controller
      */
     public function update(Request $request, Tvshow $tvshow)
     {
-
-        if ($tvshow->user_id != Auth::id()) {
-            //403 error forbidden
-            return abort(403);
-        }
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
 
 
         $request->validate([
@@ -175,10 +148,11 @@ class tvshowController extends Controller
             'release_date' => $request->release_date,
             'director' => $request->director,
             'rating' => $request->rating,
-            'difficulty' => $request->difficulty
+            'difficulty' => $request->difficulty,
+            'network_id' => '1'
         ]);
 
-        return to_route('tvshows.show', $tvshow)->with('success', 'TV Show updated successfully');
+        return to_route('admin.tvshows.show', $tvshow)->with('success', 'TV Show updated successfully');
     }
 
     /**
@@ -189,13 +163,11 @@ class tvshowController extends Controller
      */
     public function destroy(Tvshow $tvshow)
     {
-        if ($tvshow->user_id != Auth::id()) {
-            //403 error forbidden
-            return abort(403);
-        }
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
 
         $tvshow->delete();
 
-        return to_route('tvshows.index')->with('success', 'TV Show deleted successfully');
+        return to_route('admin.tvshows.index')->with('success', 'TV Show deleted successfully');
     }
 }

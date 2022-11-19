@@ -50,7 +50,7 @@ class NetworkController extends Controller
      */
     public function show(Network $network)
     {
-        $networkShows = Tvshow::where('network_id', $network->id)->get()->paginate(5);
+        $networkShows = Tvshow::where('network_id', $network->id)->get();
         
        // $networkShows = $network->with('tvshows')->get();
 

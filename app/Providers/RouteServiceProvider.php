@@ -18,8 +18,8 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     
-    // Directs to tvshows on login
-    public const HOME = '/tvshows';
+    // Directs to the home index which determines if the user is admin or not
+    public const HOME = '/home';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
