@@ -36,4 +36,9 @@ class Tvshow extends Model
     {
         return $this->belongsTo('App\Models\Network');
     }
+
+    public function actors()
+    {
+        return $this->belongsToMany(Actor::class)->withTimestamps();
+    }
 }

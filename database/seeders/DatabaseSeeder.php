@@ -16,7 +16,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
+
+        // Network seeder calls TvshowSeeder
         $this->call(NetworkSeeder::class);
         // $this->call(TvshowSeeder::class);
+        
+        $this->call(ActorSeeder::class);
     }
 }
