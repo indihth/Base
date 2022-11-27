@@ -15,6 +15,6 @@ class NetworkSeeder extends Seeder
      */
     public function run()
     {
-        Network::factory()->times(4)->create();
+        Network::factory()->times(4)->hasTvshows(5)->create();
     }
 }

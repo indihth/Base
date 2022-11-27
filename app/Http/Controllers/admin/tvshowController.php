@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Network;
 use App\Models\Tvshow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,9 @@ class tvshowController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
-        $tvshows = Tvshow::paginate(10);
+        // pagination won't work/isn't necessary with get()
+        $tvshows = Tvshow::with('network')->latest()->paginate(5);
+        // $tvshows = Tvshow::with('network')->get()->latest('created_at')->paginate(5);
 
         return view('admin.tvshows.index')->with('tvshows', $tvshows);
 
@@ -36,7 +39,9 @@ class tvshowController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
-        return view('admin.tvshows.create');
+        $networks = Network::all();
+
+        return view('admin.tvshows.create')->with('networks', $networks);
     }
 
     /**
@@ -61,7 +66,10 @@ class tvshowController extends Controller
             // https://www.youtube.com/watch?v=SY375k_BFYU
             'rating' => 'required|numeric|min:1|max:5',
             'difficulty' => 'required|numeric|min:1|max:10',
-            'image' => 'required|file|image'
+            'image' => 'required|file|image',
+
+            // feed network ids as only valid options
+            'network_id' => 'required'
         ]);
 
         $image = $request->file('image');
@@ -85,7 +93,7 @@ class tvshowController extends Controller
             'rating' => $request->rating,
             'difficulty' => $request->difficulty,
             'image' => $filename,
-            'network_id' => '1'
+            'network_id' => $request->network_id
         ]);
 
         // Return to the notes page after note is added
@@ -117,6 +125,8 @@ class tvshowController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
+        // $tvshow = Tvshow::with('network')->get();
+
         return view('admin.tvshows.edit')->with('tvshow', $tvshow);
     }
 
@@ -139,7 +149,8 @@ class tvshowController extends Controller
             'release_date' => 'required|date',
             'director' => 'required|max:120',
             'rating' => 'required|numeric|min:1|max:5',
-            'difficulty' => 'required|numeric|min:1|max:10'
+            'difficulty' => 'required|numeric|min:1|max:10',
+            // 'network_id' => 'required'
         ]);
 
         $tvshow->update([
@@ -149,7 +160,7 @@ class tvshowController extends Controller
             'director' => $request->director,
             'rating' => $request->rating,
             'difficulty' => $request->difficulty,
-            'network_id' => '1'
+            // 'network_id' => $request->network_id
         ]);
 
         return to_route('admin.tvshows.show', $tvshow)->with('success', 'TV Show updated successfully');

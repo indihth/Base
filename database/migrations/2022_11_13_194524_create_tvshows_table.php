@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
 
             // I had to rollback the tvshows migration and create
-            // the networks table first in order to create the foreignID constraint 
+            // the networks table first in order to create the foreignID constraint     
             $table->foreignId('network_id')->constrained();
             $table->timestamps();
             $table->string('title');

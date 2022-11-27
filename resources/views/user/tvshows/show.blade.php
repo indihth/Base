@@ -34,12 +34,12 @@
                     {{-- displays the image from by using the symbolic storage link --}}
                     <img src="{{ asset('storage/images/' . $tvshow->image) }}" width="150">
                 </p>
-                <p class="mt-6 whitespace-pre-wrap">Director: {{ $tvshow->director }}</p>
-                <p class="mt-6 whitespace-pre-wrap">Network: {{ $tvshow->network->title }}</p>
-                <p class="mt-6 whitespace-pre-wrap">Release Date: {{ $tvshow->release_date }}</p>
-                <p class="mt-6 whitespace-pre-wrap">Rating: {{ $tvshow->rating }}</p>
-                <p class="mt-6 whitespace-pre-wrap">Difficulty: {{ $tvshow->difficulty }}</p>
-                <p class="mt-6 whitespace-pre-wrap">Description: {{ $tvshow->description }}</p>
+                <p class="mt-6 whitespace-pre-wrap"><strong>Director:</strong> {{ $tvshow->director }}</p>
+                <p class="mt-6 whitespace-pre-wrap"><strong>Network:</strong> {{ $tvshow->network->title }}</p>
+                <p class="mt-6 whitespace-pre-wrap"><strong>Release Date: </strong>{{ $tvshow->release_date }}</p>
+                <p class="mt-6 whitespace-pre-wrap"><strong>Rating: </strong>{{ $tvshow->rating }}</p>
+                <p class="mt-6 whitespace-pre-wrap"><strong>Difficulty: </strong>{{ $tvshow->difficulty }}</p>
+                <p class="mt-6 whitespace-pre-wrap"><strong>Description: </strong>{{ $tvshow->description }}</p>
             </div>
         </div>
     </div>

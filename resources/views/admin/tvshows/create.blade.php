@@ -32,13 +32,20 @@
                     <x-text-input type="number" name="difficulty" field="difficulty" :value="@old('difficulty')"
                         placeholder="Difficulty" class="" autocomplete="off"></x-text-input>
 
-                    <x-text-input type="file" name="image" field="image" :value="@old('image')"
-                        placeholder="image" class=""></x-text-input>
-
-                    {{-- <x-text-input type="file " name="image"aria-placeholder="TV Show image" class="" field="image">
-                    </x-text-input> --}}
+                    <x-text-input type="file" name="image" field="image" :value="@old('image')" placeholder="image"
+                        class=""></x-text-input>
 
 
+                    <div class="form-group">
+                        <label for="network_id">Network</label>
+                        <select name="network_id">
+                            @foreach ($networks as $network)
+                                <option value="{{ $network->id }}"
+                                    {{ old('network_id') == $network->id ? 'selected' : '' }}>{{ $network->title }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                     <x-primary-button class="mt-6">Save</x-primary-button>
                 </form>
             </div>

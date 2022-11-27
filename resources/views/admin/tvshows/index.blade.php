@@ -25,6 +25,9 @@
                        <a href="{{ route('admin.tvshows.show', $tvshow) }}">{{ $tvshow->title }}</a> 
                     </h2>
                     <p class="mt-2">
+                        <strong>Network: {{ $tvshow->network->title }} </strong>
+                    </p>
+                    <p class="mt-2">
                         {{-- limits description to displaying only 200 characters --}}
                         {{ Str::limit($tvshow->description, 200) }}
                     </p>

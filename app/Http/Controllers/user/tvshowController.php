@@ -17,7 +17,7 @@ class tvshowController extends Controller
      */
     public function index()
     {
-        $tvshows = Tvshow::paginate(10);
+        $tvshows = Tvshow::with('network')->get();
 
         return view('user.tvshows.index')->with('tvshows', $tvshows);
 

@@ -35,7 +35,7 @@
                     <x-text-input type="number" name="difficulty" field="difficulty" :value="@old('difficulty', $tvshow->difficulty)"
                         placeholder="Difficulty" class="" autocomplete="off"></x-text-input>
 
-
+                
                     <x-primary-button class="mt-6">Save</x-primary-button>
                 </form>
             </div>
