@@ -144,5 +144,8 @@ class NetworkController extends Controller
         // Can't delete a network without first removing 
         // foreign keys from tvshows. Deleting network would
         // break database integrity
+
+        // only allow delete if network isn't
+        // used as foreign key in a tvshow
     }
 }

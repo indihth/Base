@@ -35,7 +35,14 @@
                     <x-text-input type="number" name="difficulty" field="difficulty" :value="@old('difficulty', $tvshow->difficulty)"
                         placeholder="Difficulty" class="" autocomplete="off"></x-text-input>
 
-                
+                    <div class="form-group">
+                        <label for="actors"> <strong> Actors</strong> <br></label>
+                        @foreach ($actors as $actor)
+                            <input type="checkbox", :value="@old('author',$book->author)", name="actors[]" @checked()>
+                            {{ $actor->name }}
+                        @endforeach
+                    </div>
+
                     <x-primary-button class="mt-6">Save</x-primary-button>
                 </form>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Actor;
 use App\Models\Network;
 use App\Models\Tvshow;
 use Illuminate\Http\Request;
@@ -22,11 +23,13 @@ class tvshowController extends Controller
         $user->authorizeRoles('admin');
 
         // pagination won't work/isn't necessary with get()
-        $tvshows = Tvshow::with('network')->latest()->paginate(5);
-        // $tvshows = Tvshow::with('network')->get()->latest('created_at')->paginate(5);
+        $tvshows = Tvshow::with('network')
+            ->with('actors')
+            ->latest()
+            ->paginate(5);
+
 
         return view('admin.tvshows.index')->with('tvshows', $tvshows);
-
     }
 
     /**
@@ -40,8 +43,11 @@ class tvshowController extends Controller
         $user->authorizeRoles('admin');
 
         $networks = Network::all();
+        $actors = Actor::all();
 
-        return view('admin.tvshows.create')->with('networks', $networks);
+        return view('admin.tvshows.create')
+            ->with('networks', $networks)
+            ->with('actors', $actors);
     }
 
     /**
@@ -69,7 +75,11 @@ class tvshowController extends Controller
             'image' => 'required|file|image',
 
             // feed network ids as only valid options
-            'network_id' => 'required'
+            'network_id' => 'required',
+            
+            // checks that the actors id exist in db
+            'actors' => ['required', 'exists:actors,id']   
+
         ]);
 
         $image = $request->file('image');
@@ -83,7 +93,7 @@ class tvshowController extends Controller
         $path = $image->storeAs('public/images', $filename);
 
         // Creates and saves note, passing the user_id
-        Tvshow::create([
+        $tvshow = Tvshow::create([
             'uuid' => Str::uuid(),
             'user_id' => Auth::id(),
             'title' => $request->title,
@@ -95,6 +105,10 @@ class tvshowController extends Controller
             'image' => $filename,
             'network_id' => $request->network_id
         ]);
+
+        // calls the actors() function in Tvshow model
+        // which adds the entries to the pivot table actor_tvshow
+        $tvshow->actors()->attach($request->actors);
 
         // Return to the notes page after note is added
         return to_route('admin.tvshows.index');
@@ -125,9 +139,13 @@ class tvshowController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
+        $actors = Actor::all();
+
         // $tvshow = Tvshow::with('network')->get();
 
-        return view('admin.tvshows.edit')->with('tvshow', $tvshow);
+        return view('admin.tvshows.edit')
+        ->with('tvshow', $tvshow)
+        ->with('actors', $actors);
     }
 
     /**

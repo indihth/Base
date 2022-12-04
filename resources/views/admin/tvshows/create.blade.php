@@ -46,6 +46,14 @@
                             @endforeach
                         </select>
                     </div>
+
+                    <div class="form-group">
+                        <label for="actors"> <strong> Actors</strong> <br></label>
+                        @foreach ($actors as $actor)
+                            <input type="checkbox", value="{{ $actor->id }}", name="actors[]">
+                            {{ $actor->name }}
+                        @endforeach
+                    </div>
                     <x-primary-button class="mt-6">Save</x-primary-button>
                 </form>
             </div>
