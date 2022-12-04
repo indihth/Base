@@ -5,7 +5,7 @@ use App\Http\Controllers\User\tvshowController as UserTVShowController;
 
 use App\Http\Controllers\Admin\networkController as AdminNetworkController;
 use App\Http\Controllers\User\networkController as UserNetworkController;
-use App\Http\Controllers\NetworkController;
+// use App\Http\Controllers\NetworkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +23,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/networks', NetworkController::class)->middleware(['auth']);
+// Route::resource('/networks', NetworkController::class)->middleware(['auth']);
 
 require __DIR__.'/auth.php';
 
@@ -34,6 +34,8 @@ Route::get('/home/networks', [App\Http\Controllers\HomeController::class, 'netwo
 
 // This will create all the routes for Book
 // and the routes will only be available when a user is logged in
+Route::delete('/admin/tvshows/{tvshow}', 'Admin\networkController@multiDestroy')->name('admin.tvshows.multiDestroy');
+
 Route::resource('/admin/tvshows', AdminTVShowController::class)->middleware(['auth'])->names('admin.tvshows');
 
 Route::resource('/user/tvshows', UserTVShowController::class)->middleware(['auth'])->names('user.tvshows')->only(['index', 'show']);

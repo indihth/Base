@@ -147,5 +147,30 @@ class NetworkController extends Controller
 
         // only allow delete if network isn't
         // used as foreign key in a tvshow
+
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
+        $networkShows = Tvshow::where('network_id', $network->id)->get();
+
+        if(empty($networkShows)) {
+            $network->delete();
+            
+            flash('Network deleted')->success();
+
+            return to_route('admin.networks.show');
+            // return to_route('admin.networks.index')->with('success', 'Network deleted successfully');
+        }
+
+        // $network->tvshows->multiDestroy($networkShows);
+
+        // flash("Deleted Network and")->success();
+
+        return view('admin.networks.showsDelete')->with('networkShows', $networkShows)->with('network', $network);
+        
+        // return to_route('admin.networks.index')->with('success', "didn't work");
+
+        // redirect to display page with related TV Shows?
+        // return redirect()->to('/contact-form-success');
     }
 }

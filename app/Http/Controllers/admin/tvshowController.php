@@ -199,4 +199,17 @@ class tvshowController extends Controller
 
         return to_route('admin.tvshows.index')->with('success', 'TV Show deleted successfully');
     }
+
+    public function multiDestroy($networkShows)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
+        foreach($networkShows as $tvshow){
+            $tvshow->delete();
+        }
+
+        return;
+        // return to_route('admin.network.index')->with('success', 'Network and TV Shows deleted successfully');
+    }
 }
