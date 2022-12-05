@@ -10,7 +10,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
               {{-- Delete tvshow button, needs to be form --}}
-              <form action="{{ route('admin.tvshows.multiDestroy', $network) }}" method="post">
+              {{-- <form action="{{ route('admin.tvshows.multiDestroy', $networkShows) }}" method="post"> --}}
+              <form action="{{ route('admin.tvshows.multiDestroy', $networkShows) }}" method="post">
 
                 {{-- HTML can't use delete method, @method needed --}}
                 @method('delete')

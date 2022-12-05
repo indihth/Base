@@ -3,8 +3,9 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Network') }}
         </h2>
+    
+        {{-- {{ use App\Models\Tvshow; }} --}}
     </x-slot>
-
     <div class="py-12">
         {{-- displays when network was created and updated, css needed --}}
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -24,17 +25,61 @@
                 <a href="{{ route('admin.networks.edit', $network) }}" class="btn-link ml-auto">Edit Network</a>
 
                 {{-- Delete tvshow button, needs to be form --}}
-                <form action="{{ route('admin.networks.destroy', $network) }}" method="post">
+                {{-- <form action="{{ route('admin.networks.destroy', $network) }}" method="post"> --}}
 
-                    {{-- HTML can't use delete method, @method needed --}}
-                    @method('delete')
+                {{-- HTML can't use delete method, @method needed --}}
+                {{-- @method('delete') --}}
 
-                    {{-- csrf token --}}
-                    @csrf
+                {{-- csrf token --}}
+                {{-- @csrf --}}
 
+                {{ $networkShows = app\models\Tvshow::where('network_id', $network->id)->get() }}
+
+                @if ($networkShows->count() == 0)
+                    {
+                    {{-- Delete tvshow button, needs to be form --}}
+                    <form action="{{ route('admin.networks.destroy', $network) }}" method="post">
+
+
+                        <button type="submit" class="btn btn-danger ml-4"
+                            onclick="confirm('Are you sure you want to delete this Network?')">Delete
+                            Network</button>
+
+                        {{-- HTML can't use delete method, @method needed --}}
+                        @method('delete')
+
+                        {{-- csrf token --}}
+                        @csrf
+
+                    </form>
+                    }
+                @else
+                    {
                     <button type="submit" class="btn btn-danger ml-4"
-                        onclick="confirm('Are you sure you want to delete this Network?')">Delete Network</button>
-                </form>
+                        onclick="confirm('Are you sure you want to delete this Network?')">Delete
+                        Network</button>
+
+                    <form action="{{ route('admin.networks.showsDelete', $network)->with('networkShows',
+                        $networkShows) }}" method="post">
+
+
+                        <button type="submit" class="btn btn-danger ml-4"
+                            onclick="confirm('This network contains {{ $networkShows->count() }} TV Shows, do you want to continue?')">Delete
+                            Network</button>
+
+                        {{-- HTML can't use delete method, @method needed --}}
+                        @method('delete')
+
+                        {{-- csrf token --}}
+                        @csrf
+
+                    </form>
+                    }
+                @endif
+
+                {{-- <button type="submit" class="btn btn-danger ml-4" --}}
+                {{-- onclick="confirm('Are you sure you want to delete this Network?')">Delete Network</button> --}}
+                {{-- </form> --}}
             </div>
 
 

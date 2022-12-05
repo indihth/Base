@@ -38,7 +38,7 @@
                     <div class="form-group">
                         <label for="actors"> <strong> Actors</strong> <br></label>
                         @foreach ($actors as $actor)
-                            <input type="checkbox", :value="@old('author',$book->author)", name="actors[]" @checked()>
+                            <input type="checkbox", :value="@old('network',$tvshow->network)", name="actors[]" >
                             {{ $actor->name }}
                         @endforeach
                     </div>

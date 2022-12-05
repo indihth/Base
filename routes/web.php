@@ -34,7 +34,11 @@ Route::get('/home/networks', [App\Http\Controllers\HomeController::class, 'netwo
 
 // This will create all the routes for Book
 // and the routes will only be available when a user is logged in
-Route::delete('/admin/tvshows/{tvshow}', 'Admin\networkController@multiDestroy')->name('admin.tvshows.multiDestroy');
+
+// Extra route for TV Show multiDestroy method
+Route::delete('/admin/tvshows', [AdminTVShowController::class, 'multiDestroy'])->name('admin.tvshows.multiDestroy');
+
+// Route::delete('/admin/tvshows/{network}', 'networkController@multiDestroy');
 
 Route::resource('/admin/tvshows', AdminTVShowController::class)->middleware(['auth'])->names('admin.tvshows');
 
