@@ -77,16 +77,16 @@ class NetworkController extends Controller
      */
     public function show(Network $network)
     {
-        // $networkShows = Tvshow::where('network_id', $network->id)->get();
+        $networkShows = Tvshow::where('network_id', $network->id)->get();
 
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
-        if(!Auth::id()) {
+        if (!Auth::id()) {
             return abort(403);
         }
 
-        return view('admin.networks.show')->with('network', $network);
+        return view('admin.networks.show')->with('network', $network)->with('networkShows', $networkShows);
     }
 
     /**
@@ -153,43 +153,50 @@ class NetworkController extends Controller
 
         $networkShows = Tvshow::where('network_id', $network->id)->get();
 
-        // if(isset($networkShows)){
-        //     dd('EMPTY');
-        //     dd($networkShows);
-        // }
-        // else{
-        //     dd('Not EMPTY');
-        //     dd($networkShows);
-        // }
+        // $network->delete();
 
-        
-        if($networkShows->count()==0) {
-            // $network->delete();
-            echo("zrre");
-            dd($networkShows);
-            // flash('Network has no shows')->success();
+        // if the network only contains 1 tvshow that delete network
+        if ($networkShows->count() < 1) {
 
-            // return to_route('admin.networks.show', $network);
-            // return to_route('admin.networks.index')->with('success', 'Network deleted successfully');
-        } else 
-        {
-            // foreach($networkShows as $tvshow){
-            //     $tvshow->delete();
-            // }
-            // $network->delete();
+            $network->delete();
+            return to_route('admin.networks.index')->with('success', 'Network Deleted Successfully');
 
-            // dd($networkShows);
-            // flash('Network has shows')->success();
-            // return to_route('admin.networks.show', $network);
-            return view('admin.networks.showsDelete')->with('networkShows', $networkShows)->with('network', $network);
+        } else {
+            // delete tvshows from the network
+            foreach ($networkShows as $tvshow) {
+                $tvshow->delete();
+                // dd($tvshow);
+                flash($tvshow->title)->success();
+            };
+
+            // delete network after tvshows have been deleted
+            $network->delete();
+
+            return to_route('admin.networks.index')->with('success', 'Network and related TV Shows deleted');
         }
+        // if($networkShows->count()==0) {
+        //     // $network->delete();
+        //     echo("zrre");
+        //     dd($networkShows);
+        //     // flash('Network has no shows')->success();
 
-        // $network->tvshows->multiDestroy($networkShows);
+        //     // return to_route('admin.networks.show', $network);
+        //     // return to_route('admin.networks.index')->with('success', 'Network deleted successfully');
+        // } else 
+        // {
+        // foreach($networkShows as $tvshow){
+        //     $tvshow->delete();
+        // }
+        // $network->delete();
 
-        // flash("Deleted Network and")->success();
+        // dd($networkShows);
+        // flash('Network has shows')->success();
+        // return to_route('admin.networks.show', $network);
+        //     return view('admin.networks.showsDelete')->with('networkShows', $networkShows)->with('network', $network);
+        // }
 
-        
-        // return to_route('admin.networks.index')->with('success', "didn't work");
+        // return to_route('admin.networks.index');
+        // return to_route('admin.networks.index')->with('success', "networkShows was more than 0");
 
         // redirect to display page with related TV Shows?
         // return redirect()->to('/contact-form-success');

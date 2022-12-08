@@ -13,6 +13,8 @@
                 {{ session('success') }}
             </x-alert-success>
 
+            @include('flash::message')
+
             {{-- routes to the create form --}}
             <a href="{{ route('admin.networks.create') }}" class="btn-link btn-lg mb-2">+ New Network</a>
 

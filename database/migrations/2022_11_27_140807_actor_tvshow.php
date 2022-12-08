@@ -19,8 +19,8 @@ return new class extends Migration
             $table->bigInteger('tvshow_id')->unsigned();
             
             // add foreign keys - ids from users and roles table
-            $table->foreign('actor_id')->references('id')->on('actors')->onUpdate('cascade')->onDelete('restrict');
-            $table->foreign('tvshow_id')->references('id')->on('tvshows')->onUpdate('cascade')->onDelete('restrict');
+            // $table->foreign('actor_id')->references('id')->on('actors')->onUpdate('cascade')->onDelete('restrict');
+            // $table->foreign('tvshow_id')->references('id')->on('tvshows')->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();
         });
       

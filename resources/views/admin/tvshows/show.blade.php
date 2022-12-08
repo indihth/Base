@@ -26,7 +26,7 @@
                 <a href="{{ route('admin.tvshows.edit', $tvshow) }}" class="btn-link ml-auto">Edit TV Show</a>
 
                 {{-- NEED TO REMOVE ACTOR FROM TV SHOW BEFORE DELETE --}}
-                
+
                 {{-- Delete tvshow button, needs to be form --}}
                 <form action="{{ route('admin.tvshows.destroy', $tvshow) }}" method="post">
 
