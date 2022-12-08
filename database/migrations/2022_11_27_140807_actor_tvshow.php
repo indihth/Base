@@ -19,6 +19,8 @@ return new class extends Migration
             $table->bigInteger('tvshow_id')->unsigned();
 
             // add foreign keys - ids from users and roles table
+            // onDelete('cascade') will delete the the row when one of the FKs gets deleted
+            // allows TV Show to be deleted without needing to delete an Actor as well
             $table->foreign('actor_id')->references('id')->on('actors')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('tvshow_id')->references('id')->on('tvshows')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
