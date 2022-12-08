@@ -195,40 +195,48 @@ class tvshowController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
+        ///////////////////////////////////////////
+        // FUNCTIONALITY MOVED TO NETWORK CONTROLLER
+        ///////////////////////////////////////////
         // Check if $tvshows contains more than one show
-        if (!$tvshow == Tvshow::class) {
-            dd(" == 0");
-            dd($tvshow->count());
-            // dd($tvshow->count());
-            foreach ($tvshow as $tvshow) {
-                $tvshow->delete();
-            }
-            return to_route('admin.network.index')->with('success', 'Network and TV Shows deleted successfully');
-        }
+        // if (!$tvshow == Tvshow::class) {
+        //     dd(" == 0");
+        //     dd($tvshow->count());
+        //     // dd($tvshow->count());
+        //     foreach ($tvshow as $tvshow) {
+        //         $tvshow->delete();
+        //     }
+        //     return to_route('admin.network.index')->with('success', 'Network and TV Shows deleted successfully');
+        // }
 
-        // dd(" == 0");
-        // dd($tvshow->count());
+        // Flash messages from 'Laracast Easy Flash Messages'
+        flash('TV Show deleted')->success();
+
         $tvshow->delete();
 
-        return to_route('admin.tvshows.index')->with('success', 'one deleted');
+        return to_route('admin.tvshows.index');
     }
 
-    public function multiDestroy($network)
-    {
-        // $user = Auth::user();
-        // $user->authorizeRoles('admin');
 
-        $networkShows = Tvshow::where('network_id', $network->id)->get();
+    ///////////////////////////////////////////
+    // FUNCTION NO LONGER NEEDED
+    ///////////////////////////////////////////
+    // public function multiDestroy($network)
+    // {
+    //     // $user = Auth::user();
+    //     // $user->authorizeRoles('admin');
 
-        // dd($networkShows);
+    //     $networkShows = Tvshow::where('network_id', $network->id)->get();
 
-        foreach ($networkShows as $tvshow) {
-            $tvshow->delete();
-        }
+    //     // dd($networkShows);
 
-        // $network->delete();
+    //     foreach ($networkShows as $tvshow) {
+    //         $tvshow->delete();
+    //     }
 
-        // return;
-        return to_route('admin.network.index')->with('success', 'Network and TV Shows deleted successfully');
-    }
+    //     // $network->delete();
+
+    //     // return;
+    //     return to_route('admin.network.index')->with('success', 'Network and TV Shows deleted successfully');
+    // }
 }

@@ -13,6 +13,9 @@
                 {{ session('success') }}
             </x-alert-success>
 
+            {{-- Flash messages from 'Laracast Easy Flash Messages'--}}
+            @include('flash::message')
+
         {{-- routes to the create form --}}
         <a href="{{ route('admin.tvshows.create') }}" class="btn-link btn-lg mb-2">+ New TV Show</a>
 

@@ -165,14 +165,21 @@ class NetworkController extends Controller
             // delete tvshows from the network
             foreach ($networkShows as $tvshow) {
                 $tvshow->delete();
-                // dd($tvshow);
-                flash($tvshow->title)->success();
+
+                // debugging, show flash message for each deleted tvshow
+                // flash($tvshow->title)->success();
             };
 
             // delete network after tvshows have been deleted
             $network->delete();
 
-            return to_route('admin.networks.index')->with('success', 'Network and related TV Shows deleted');
+            // Success flash message
+            flash('Network and related TV Shows deleted')->success();
+
+            // Additional flash message options, doesn't display properly because of bootstrap css
+            // flash()->overlay($networkShows->count(), 'Network and related TV Shows deleted');
+
+            return to_route('admin.networks.index');
         }
         // if($networkShows->count()==0) {
         //     // $network->delete();

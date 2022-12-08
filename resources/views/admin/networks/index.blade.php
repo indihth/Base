@@ -13,6 +13,7 @@
                 {{ session('success') }}
             </x-alert-success>
 
+            {{-- Flash messages from 'Laracast Easy Flash Messages'--}}
             @include('flash::message')
 
             {{-- routes to the create form --}}
