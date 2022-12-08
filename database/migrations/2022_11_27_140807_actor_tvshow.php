@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('actor_tvshow', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('actor_id')->unsigned()->nullable();
-            $table->bigInteger('tvshow_id')->unsigned()->nullable();
+            $table->bigInteger('actor_id')->unsigned();
+            $table->bigInteger('tvshow_id')->unsigned();
 
             // add foreign keys - ids from users and roles table
-            $table->foreign('actor_id')->references('id')->on('actors')->onUpdate('cascade')->onDelete('set null');
-            $table->foreign('tvshow_id')->references('id')->on('tvshows')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('actor_id')->references('id')->on('actors')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('tvshow_id')->references('id')->on('tvshows')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
