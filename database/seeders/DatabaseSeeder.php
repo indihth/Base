@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(NetworkSeeder::class);
         // $this->call(TvshowSeeder::class);
         
-        // $this->call(ActorSeeder::class);
+        $this->call(ActorSeeder::class);
     }
 }
