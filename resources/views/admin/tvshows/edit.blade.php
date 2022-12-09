@@ -40,11 +40,28 @@
                     <div class="form-group">
                         <label for="actors"> <strong> Actors</strong> <br></label>
 
-                        @foreach ($actors as $actor)
-                            <input type="checkbox" name="actor[]" value="{{ $actor->id }}" @checked(old('actors[]', $tvshow->actor->name)) >
-                            {{ $actor->name }}
-                        @endforeach
+                        
+                        {{-- Couldn't figure out how to check the actors who belonged to the tvshow --}}
 
+                        {{-- @foreach ($actors as $actor)
+                            @if ($actor->id == $actor->id)
+
+                            <input type="checkbox" name="actor[]" value="{{ $actor->id }}" @checked >
+                            {{ $actor->name }}
+
+                            @else
+
+                            <input type="checkbox" name="actor[]" value="{{ $actor->id }}"  @checked>
+                            {{ $actor->name }}
+
+                            @endif
+
+                        @endforeach --}}
+
+                        @foreach ($actors as $actor)
+                        <input type="checkbox" name="actor[]" value="{{ $actor->id }}" @checked(old('$actor->name' == $actor->name)) >
+                        {{ $actor->name }}
+                        @endforeach
                         {{-- <input type="checkbox" name="active" value="active" @checked(old('active', $user->active)) /> --}}
                     </div>
 
