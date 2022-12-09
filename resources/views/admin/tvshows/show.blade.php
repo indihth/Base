@@ -61,6 +61,7 @@
 
                 <p class="mt-6 whitespace-pre-wrap"><strong>Actors: </strong></p>
 
+                {{-- loops through all of the actors and displays the names --}}
                 @foreach ($tvshow->actors as $actor)
                     <p>{{ $actor->name }}</p>
                 @endforeach

@@ -229,6 +229,7 @@ class tvshowController extends Controller
     //     // $user = Auth::user();
     //     // $user->authorizeRoles('admin');
 
+    
     //     $networkShows = Tvshow::where('network_id', $network->id)->get();
 
     //     // dd($networkShows);

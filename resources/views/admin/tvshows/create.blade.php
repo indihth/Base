@@ -35,12 +35,14 @@
                     <x-text-input type="file" name="image" field="image" placeholder="image"
                         class="w-full mt-6"></x-text-input>
 
-
+                        {{-- drop down menu to select the network --}}
                     <div class="form-group">
                         <label for="network_id">Network</label>
                         <select name="network_id">
+                            {{-- loops through each network and displays them as a drop down option --}}
                             @foreach ($networks as $network)
                                 <option value="{{ $network->id }}"
+                                    {{-- old() retains the selection  --}}
                                     {{ old('network_id') == $network->id ? 'selected' : '' }}>{{ $network->title }}
                                 </option>
                             @endforeach

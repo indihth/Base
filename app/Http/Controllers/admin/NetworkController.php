@@ -181,9 +181,13 @@ class NetworkController extends Controller
 
             return to_route('admin.networks.index');
         
+
         // if($networkShows->count()==0) {
         //     // $network->delete();
         //     echo("zrre");
+
+        //          debugging, trying to see if the $networkShows contained an array
+        //          and what the structure of the variable was
         //     dd($networkShows);
         //     // flash('Network has no shows')->success();
 

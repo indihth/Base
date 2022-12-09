@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(NetworkSeeder::class);
         // $this->call(TvshowSeeder::class);
         
+        // ActorSeeder calls Tvshowseeder itself so no need for both
         $this->call(ActorSeeder::class);
     }
 }

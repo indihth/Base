@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label for="actors"> <strong> Actors</strong> <br></label>
 
-                        
+
                         {{-- Couldn't figure out how to check the actors who belonged to the tvshow --}}
 
                         {{-- @foreach ($actors as $actor)
@@ -51,13 +51,14 @@
 
                             @else
 
-                            <input type="checkbox" name="actor[]" value="{{ $actor->id }}"  @checked>
+                            <input type="checkbox" name="actor[]" value="{{ $actor->id }}" >
                             {{ $actor->name }}
 
                             @endif
 
                         @endforeach --}}
 
+                        {{-- @checked should check the box if the inner conditions are true --}}
                         @foreach ($actors as $actor)
                         <input type="checkbox" name="actor[]" value="{{ $actor->id }}" @checked(old('$actor->name' == $actor->name)) >
                         {{ $actor->name }}

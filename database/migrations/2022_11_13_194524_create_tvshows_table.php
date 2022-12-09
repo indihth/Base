@@ -22,7 +22,7 @@ return new class extends Migration
             // the networks table first in order to create the foreignID constraint     
             // $table->foreignId('network_id')->constrained();
 
-            // Allow the tvshow to be deleted upon deletion of the network 
+            // Allow the tvshow to be deleted upon deletion of the network with onDelete('cascade')
             $table->foreignId('network_id')->references('id')->on('networks')->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
