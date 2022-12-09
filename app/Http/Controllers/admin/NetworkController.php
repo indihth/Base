@@ -180,7 +180,7 @@ class NetworkController extends Controller
             // flash()->overlay($networkShows->count(), 'Network and related TV Shows deleted');
 
             return to_route('admin.networks.index');
-        }
+        
         // if($networkShows->count()==0) {
         //     // $network->delete();
         //     echo("zrre");
