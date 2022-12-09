@@ -20,7 +20,10 @@ return new class extends Migration
 
             // I had to rollback the tvshows migration and create
             // the networks table first in order to create the foreignID constraint     
-            $table->foreignId('network_id')->constrained();
+            // $table->foreignId('network_id')->constrained();
+
+            // Allow the tvshow to be deleted upon deletion of the network 
+            $table->foreign('network_id')->references('id')->on('networks')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->string('title');
             $table->longText('description');

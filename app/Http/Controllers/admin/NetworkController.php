@@ -151,24 +151,24 @@ class NetworkController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
-        $networkShows = Tvshow::where('network_id', $network->id)->get();
+        // $networkShows = Tvshow::where('network_id', $network->id)->get();
 
-        // $network->delete();
+        // // $network->delete();
 
-        // if the network only contains 1 tvshow that delete network
-        if ($networkShows->count() < 1) {
+        // // if the network only contains 1 tvshow that delete network
+        // if ($networkShows->count() < 1) {
 
-            $network->delete();
-            return to_route('admin.networks.index')->with('success', 'Network Deleted Successfully');
+        //     $network->delete();
+        //     return to_route('admin.networks.index')->with('success', 'Network Deleted Successfully');
 
-        } else {
-            // delete tvshows from the network
-            foreach ($networkShows as $tvshow) {
-                $tvshow->delete();
+        // } else {
+        //     // delete tvshows from the network
+        //     foreach ($networkShows as $tvshow) {
+        //         $tvshow->delete();
 
-                // debugging, show flash message for each deleted tvshow
-                // flash($tvshow->title)->success();
-            };
+        //         // debugging, show flash message for each deleted tvshow
+        //         // flash($tvshow->title)->success();
+        //     };
 
             // delete network after tvshows have been deleted
             $network->delete();
