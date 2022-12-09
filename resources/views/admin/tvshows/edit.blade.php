@@ -35,12 +35,17 @@
                     <x-text-input type="number" name="difficulty" field="difficulty" :value="@old('difficulty', $tvshow->difficulty)"
                         placeholder="Difficulty" class="" autocomplete="off"></x-text-input>
 
+
+
                     <div class="form-group">
                         <label for="actors"> <strong> Actors</strong> <br></label>
+
                         @foreach ($actors as $actor)
-                            <input type="checkbox", :value="@old('network',$tvshow->network)", name="actors[]" >
+                            <input type="checkbox" name="actor[]" value="{{ $actor->id }}" @checked(old('actors[]', $tvshow->actor->name)) >
                             {{ $actor->name }}
                         @endforeach
+
+                        {{-- <input type="checkbox" name="active" value="active" @checked(old('active', $user->active)) /> --}}
                     </div>
 
                     <x-primary-button class="mt-6">Save</x-primary-button>

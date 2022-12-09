@@ -32,8 +32,8 @@
                     <x-text-input type="number" name="difficulty" field="difficulty" :value="@old('difficulty')"
                         placeholder="Difficulty" class="" autocomplete="off"></x-text-input>
 
-                    <x-text-input type="file" name="image" field="image" :value="@old('image')" placeholder="image"
-                        class=""></x-text-input>
+                    <x-text-input type="file" name="image" field="image" placeholder="image"
+                        class="w-full mt-6"></x-text-input>
 
 
                     <div class="form-group">

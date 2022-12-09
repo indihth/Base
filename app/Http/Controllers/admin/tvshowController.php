@@ -72,25 +72,28 @@ class tvshowController extends Controller
             // https://www.youtube.com/watch?v=SY375k_BFYU
             'rating' => 'required|numeric|min:1|max:5',
             'difficulty' => 'required|numeric|min:1|max:10',
-            'image' => 'required|file|image',
+            'image' => 'file|image',
 
             // feed network ids as only valid options
             'network_id' => 'required',
 
             // checks that the actors id exist in db
-            // 'actors' => ['required', 'exists:actors,id']   
+            'actors' => ['required', 'exists:actors,id']   
 
         ]);
 
         $image = $request->file('image');
         $extension = $image->getClientOriginalExtension();
+
         $filename = date('Y-m-d-His') . '_' . $request->input('title') . '.' . $extension;
 
-        // // referenced: https://dev.to/shanisingh03/how-to-upload-image-in-laravel-9--4dkf
+        $path = $image->storeAs('public/images', $filename);
+
+        // // // referenced: https://dev.to/shanisingh03/how-to-upload-image-in-laravel-9--4dkf
         // $filename = time().'.'.$request->image->extension();
 
-        // stores the image file in the public images folder
-        $path = $image->storeAs('public/images', $filename);
+        // // stores the image file in the public images folder
+        // $path = $image->storeAs('public/storage/images', $filename);
 
         // Creates and saves note, passing the user_id
         $tvshow = Tvshow::create([

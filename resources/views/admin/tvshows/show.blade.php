@@ -50,7 +50,7 @@
                 </div>
                 <p>
                     {{-- displays the image from by using the symbolic storage link --}}
-                    <img src="{{ asset('storage/images/' . $tvshow->image) }}" width="150">
+                    <img src="{{ asset('storage/images/', $tvshow->image) }}" width="150"/>
                 </p>
                 <p class="mt-6 whitespace-pre-wrap"><strong>Director:</strong> {{ $tvshow->director }}</p>
                 <p class="mt-6 whitespace-pre-wrap"><strong>Network:</strong> {{ $tvshow->network->title }}</p>
